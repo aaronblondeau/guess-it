@@ -1,0 +1,4 @@
+.env
+node_modules
+GuessIt_sol_GuessIt.bin
+yarn.lock
