@@ -1,7 +1,7 @@
 # GuessIt
 
 This is a discovery project.  The goals of the project are:
-- Learn about Hedera and Smart Contracts
+- Learn about Hedera and smart contracts
 - Learn basic Solidity
 - Develop code snippets for future use
 
