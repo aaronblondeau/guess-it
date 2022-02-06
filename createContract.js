@@ -36,6 +36,7 @@ async function createContract() {
             console.log(`~ Creating contract with file ID ${bytecodeFileId}`)
             
             const contractInstantiateTx = new ContractCreateTransaction()
+                .setAdminKey(ownerKey)
                 .setBytecodeFileId(bytecodeFileId)
                 .setGas(3000000)
                 // Set initial secret phrase on contract creation

@@ -31,6 +31,10 @@ contract GuessIt {
         return true;
     }
 
+    function contractVersion() public pure returns (uint) {
+        return 2;
+    }
+
     // TODO - collect token for each wrong guess and add it to pot
     // TODO - award pot to sender upon correct guess
 }

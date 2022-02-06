@@ -36,7 +36,7 @@ async function cleanUp() {
         const receipt = await txResponse.getReceipt(client);
         const transactionStatus = receipt.status;
 
-        console.log("Delete contract status " + transactionStatus);
+        console.log("Delete contract status " + transactionStatus.toString());
         if (transactionStatus.toString() === 'SUCCESS') {
             await fs.remove(contractIdFilename)
         }

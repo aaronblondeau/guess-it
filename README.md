@@ -5,7 +5,7 @@ This is a discovery project.  The goals of the project are:
 - Learn basic Solidity
 - Develop code snippets for future use
 
-The smart contract is currently deployed on testnet here : [0.0.29627045](https://testnet.dragonglass.me/hedera/contracts/0.0.29627045)
+The smart contract is currently deployed on testnet here : [0.0.29627383](https://testnet.dragonglass.me/hedera/contracts/0.0.29627383)
 
 The smart contract is a guessing game.  Call the guessPhrase method with a string and see if you're right!  The transaction will succeed with a correct guess and will throw a CONTRACT_REVERT_EXECUTED error status with an incorrect guess.
 
