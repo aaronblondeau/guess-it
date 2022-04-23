@@ -38,17 +38,16 @@ async function makeGuess(guess) {
             .setMaxTransactionFee(new Hbar(2))
         const contractExecResult = await contractExecTx.execute(client)
         const contractExecRx = await contractExecResult.getReceipt(client)
-        console.log(contractExecRx)
+        // console.log(contractExecRx)
 
         // https://hedera.com/blog/how-to-get-event-information-from-hedera-smart-contracts
         const record = await contractExecResult.getRecord(client);
         const result = record.contractFunctionResult
 
-        // console.log(result)
-
+        // Convert 32 byte result to a uint (1 = true, 0 = false)
         const correct = result.bytes.readUIntLE(31, 1)
 
-        console.log(correct)
+        // console.log(correct)
         if (correct) {
             return true
         }

@@ -2,3 +2,5 @@
 node_modules
 GuessIt_sol_GuessIt.bin
 yarn.lock
+contract_file_id.dat
+contract_id.dat

@@ -36,15 +36,14 @@ contract GuessIt {
             return false;
         }
         
-        // Guess was correct, transfer pot to caller (retain some if pot to pay fees)
+        // Guess was correct, transfer pot to caller
         emit GuessAtttempt(msg.sender, _guess, true, pot);
-        if (pot - 100000000 > 0) {
-            payable(msg.sender).transfer(pot - 100000000);
-        }
+        payable(msg.sender).transfer(pot);
+        pot = 0;
         return true;
     }
 
     function contractVersion() public pure returns (uint) {
-        return 8;
+        return 9;
     }
 }

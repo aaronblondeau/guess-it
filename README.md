@@ -61,5 +61,5 @@ node cleanUp.js
 
 Current Testnet Versions:
 
-file = 0.0.34279946
-contract = 0.0.34279947
+file = 0.0.34280144
+contract = 0.0.34280145
