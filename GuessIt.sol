@@ -36,7 +36,7 @@ contract GuessIt {
             return false;
         }
         
-        // Guess was correct, transfer pot to calleer (retain some if pot to pay fees)
+        // Guess was correct, transfer pot to caller (retain some if pot to pay fees)
         emit GuessAtttempt(msg.sender, _guess, true, pot);
         if (pot - 100000000 > 0) {
             payable(msg.sender).transfer(pot - 100000000);
