@@ -30,22 +30,29 @@ async function makeGuess(guess) {
         const contractId = ContractId.fromBytes(contractIdBytes)
         console.log(`~ Testing guess ${guess} against contract id ${contractId}`)
 
-        try {
-            const contractExecTx = await new ContractExecuteTransaction()
-                .setContractId(contractId)
-                .setGas(3000000)
-                .setFunction("guessPhrase", new ContractFunctionParameters().addString(guess))
-                .setMaxTransactionFee(new Hbar(2))
-            const contractExecResult = await contractExecTx.execute(client)
-            const contractExecRx = await contractExecResult.getReceipt(client)
-            if (contractExecRx.status.toString() === 'SUCCESS') {
-                return true
-            }
-            return false
-        } catch (error) {
-            console.warn(error)
-            return false
+        const contractExecTx = await new ContractExecuteTransaction()
+            .setContractId(contractId)
+            .setGas(3000000)
+            .setFunction("guessPhrase", new ContractFunctionParameters().addString(guess))
+            .setPayableAmount(5.0)
+            .setMaxTransactionFee(new Hbar(2))
+        const contractExecResult = await contractExecTx.execute(client)
+        const contractExecRx = await contractExecResult.getReceipt(client)
+        console.log(contractExecRx)
+
+        // https://hedera.com/blog/how-to-get-event-information-from-hedera-smart-contracts
+        const record = await contractExecResult.getRecord(client);
+        const result = record.contractFunctionResult
+
+        // console.log(result)
+
+        const correct = result.bytes.readUIntLE(31, 1)
+
+        console.log(correct)
+        if (correct) {
+            return true
         }
+        return false
     } else {
         throw new Error('No contract ID detected!')
     }

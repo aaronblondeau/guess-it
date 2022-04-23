@@ -9,6 +9,9 @@ contract GuessIt {
 
     string private secretPhrase;
     address public owner;
+    uint pot = 0;
+
+    event GuessAtttempt(address indexed from, string guess, bool success, uint pot);
 
     constructor (string memory _phrase) {
         owner = msg.sender;
@@ -21,20 +24,27 @@ contract GuessIt {
         secretPhrase = _phrase;
     }
 
-    // It turns out that the return value of this is hard to get
-    // We could use CallContractQuery instead : https://docs.hedera.com/guides/docs/sdks/smart-contracts/call-a-smart-contract-function-1
-    // But that won't help for TODOs planned below:
-    function guessPhrase(string memory _guess) public view returns (bool) {
-        // Since I cannot find a way to get return value from transaction
-        // throw an error if the guess is wrong:
-        require (keccak256(abi.encodePacked((_guess))) == keccak256(abi.encodePacked((secretPhrase))));
+    function guessPhrase(string memory _guess) public payable returns (bool) {
+        // Make sure caller has sent at least 5 HBAR
+        require (msg.value >= 500000000, "insufficient payable");
+
+        // Add funds to the pot (why doesn't this show in contract balance on dragonglass?)
+        pot += msg.value;
+
+        if (keccak256(abi.encodePacked((_guess))) != keccak256(abi.encodePacked((secretPhrase)))) {
+            emit GuessAtttempt(msg.sender, _guess, false, pot);
+            return false;
+        }
+        
+        // Guess was correct, transfer pot to calleer (retain some if pot to pay fees)
+        emit GuessAtttempt(msg.sender, _guess, true, pot);
+        if (pot - 100000000 > 0) {
+            payable(msg.sender).transfer(pot - 100000000);
+        }
         return true;
     }
 
     function contractVersion() public pure returns (uint) {
-        return 2;
+        return 8;
     }
-
-    // TODO - collect token for each wrong guess and add it to pot
-    // TODO - award pot to sender upon correct guess
 }

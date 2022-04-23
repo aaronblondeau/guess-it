@@ -32,7 +32,7 @@ yarn install
 Then compile the smart contract:
 
 ```
-yarn solcjs
+yarn solcjs --bin GuessIt.sol
 ```
 
 Next, upload the binary file:
@@ -58,3 +58,8 @@ To delete the contract and file when you're done:
 ```
 node cleanUp.js
 ```
+
+Current Testnet Versions:
+
+file = 0.0.34279946
+contract = 0.0.34279947

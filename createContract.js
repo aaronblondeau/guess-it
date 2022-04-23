@@ -15,8 +15,8 @@ const ownerId = AccountId.fromString(process.env.OWNER_ID)
 const ownerKey = PrivateKey.fromString(process.env.OWNER_PVTKEY)
 
 const client = Client.forTestnet().setOperator(ownerId, ownerKey)
-client.setMaxTransactionFee(new Hbar(0.75))
-client.setMaxQueryPayment(new Hbar(0.01))
+client.setMaxTransactionFee(new Hbar(5.0))
+client.setMaxQueryPayment(new Hbar(0.05))
 
 const contractIdFilename = './contract_id.dat'
 const fileIdFilename = './contract_file_id.dat'
